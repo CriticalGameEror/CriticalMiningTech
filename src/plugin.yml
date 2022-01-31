@@ -5,3 +5,19 @@ description: Adds custom mining tech to your minecraft world
 api-version: 1.16
 author: CriticalGameEror
 depend: [ProtocolLib]
+commands:
+  addblockhardness:
+    description: adds a custom block hardness value to the config
+    permission: criticalmining.addblockhardness
+    permission-message: You do not have permission to use this command.
+    usage: "Usage: /addblockhardness <hardness>"
+permissions:
+  criticalmining.*:
+    description: Gives all criticalmining privilages
+    default: op
+    children:
+      criticalmining.addblockhardness: true
+  criticalmining.addblockhardness:
+    description: Gives the addblockhardness permission
+    default: op
+    
