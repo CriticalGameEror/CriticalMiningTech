@@ -13,7 +13,6 @@ public class CriticalMiningTech extends JavaPlugin{
 		filehandler = new SpeedConfigFileHandler(this);
 		new PacketManager(this);
 		new AddBlock(this);
-		new BlockDamage(this);
 	}
 	
 	public void onDisable() {
