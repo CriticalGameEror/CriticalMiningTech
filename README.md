@@ -1,6 +1,6 @@
 # CriticalMiningTech
 
-!Currently in development!
+** !Currently in development!
 
 Implements custom mining tech into Minecraft. This allows you to customise breaking hardness for blocks by manipulating packets.
 
