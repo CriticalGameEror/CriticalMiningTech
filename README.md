@@ -6,9 +6,9 @@ This plugin implements custom mining tech into Minecraft. This allows you to cus
 
 ### Permissions (all below are given only to operators):
 
-criticalmining.*: Gives all permissions under criticalmining
+`criticalmining.*`: Gives all permissions under criticalmining
 
-criticalmining.blockhardness: Gives the permission to use the blockhardness command
+`criticalmining.blockhardness`: Gives the permission to use the blockhardness command
 
 ### Commands:
 
