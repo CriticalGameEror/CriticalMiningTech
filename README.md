@@ -12,4 +12,4 @@ criticalmining.blockhardness: Gives the permission to use the blockhardness comm
 
 ### Commands:
 
-blockhardness: Allows you to set or remove block hardness of a targeted block
+`/blockhardness`: Allows you to set or remove block hardness of a targeted block
