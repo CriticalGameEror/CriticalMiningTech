@@ -2,7 +2,7 @@
 
 ## **!Currently in development!**
 
-Implements custom mining tech into Minecraft. This allows you to customise breaking hardness for blocks by manipulating packets.
+This plugin implements custom mining tech into Minecraft. This allows you to customise breaking hardness for blocks by manipulating packets.
 
 ### Permissions (all below are given only to operators):
 
