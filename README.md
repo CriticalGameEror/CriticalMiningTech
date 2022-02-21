@@ -1,7 +1,5 @@
 # CriticalMiningTech (1.16 plugin)
 
-## **!Currently in development!**
-
 This plugin implements custom mining tech into Minecraft. This allows you to customise breaking hardness for blocks by manipulating packets.
 
 ### Permissions (all below are given only to operators):
@@ -12,7 +10,7 @@ This plugin implements custom mining tech into Minecraft. This allows you to cus
 
 ### Commands:
 
-`/blockhardness`: Allows you to set or remove block hardness of a targeted block (see https://minecraft.fandom.com/wiki/Breaking for info on what block hardness is)
+`/blockhardness`: Allows you to set or remove block hardness of a targeted block, that being the block you are currently looking at (see https://minecraft.fandom.com/wiki/Breaking for info on what block hardness is)
 
 ### Dependencies:
 
