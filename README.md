@@ -12,7 +12,7 @@ This plugin implements custom mining tech into Minecraft. This allows you to cus
 
 ### Commands:
 
-`/blockhardness`: Allows you to set or remove block hardness of a targeted block
+`/blockhardness`: Allows you to set or remove block hardness of a targeted block (see https://minecraft.fandom.com/wiki/Breaking for info on what block hardness is)
 
 ### Dependencies:
 
