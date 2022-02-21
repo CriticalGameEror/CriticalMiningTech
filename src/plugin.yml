@@ -6,18 +6,18 @@ api-version: 1.16
 author: CriticalGameEror
 depend: [ProtocolLib]
 commands:
-  addblockhardness:
-    description: adds a custom block hardness value to the config
-    permission: criticalmining.addblockhardness
+  blockhardness:
+    description: adds a custom block hardness value to the config or to remove the hardness
+    permission: criticalmining.blockhardness
     permission-message: You do not have permission to use this command.
-    usage: "Usage: /addblockhardness <hardness>"
+    usage: "Usage: /addblockhardness <set|remove> <hardness (if 'set' is chosen)>"
 permissions:
   criticalmining.*:
     description: Gives all criticalmining privilages
     default: op
     children:
       criticalmining.addblockhardness: true
-  criticalmining.addblockhardness:
+  criticalmining.blockhardness:
     description: Gives the addblockhardness permission
     default: op
     

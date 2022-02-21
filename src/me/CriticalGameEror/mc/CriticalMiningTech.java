@@ -2,7 +2,8 @@ package me.CriticalGameEror.mc;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.CriticalGameEror.mc.Commands.AddBlock;
+import me.CriticalGameEror.mc.blockbreaking.PacketManager;
+import me.CriticalGameEror.mc.commands.BlockHardness;
 import me.CriticalGameEror.mc.filehandler.SpeedConfigFileHandler;
 
 public class CriticalMiningTech extends JavaPlugin{
@@ -12,14 +13,6 @@ public class CriticalMiningTech extends JavaPlugin{
 	public void onEnable() {
 		filehandler = new SpeedConfigFileHandler(this);
 		new PacketManager(this);
-		new AddBlock(this);
+		new BlockHardness(this);
 	}
-	
-	public void onDisable() {
-		//TODO
-	}
-	
-
-
-
 }

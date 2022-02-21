@@ -1,7 +1,8 @@
-package me.CriticalGameEror.mc;
+package me.CriticalGameEror.mc.blockbreaking;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -15,13 +16,20 @@ import org.bukkit.potion.PotionEffect;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.events.PacketEvent;
+
+import me.CriticalGameEror.mc.CriticalMiningTech;
 
 public class PacketManager implements Listener{
 	
 	private CriticalMiningTech plugin;
 	
 	private static HashMap<String, PotionEffect> previousFatigueEffects = new HashMap<String, PotionEffect>();
+	
+	public static HashMap<String, Long> armSwinging = new HashMap<String, Long>();
 	
 	private ProtocolManager manager;
 	
@@ -32,15 +40,28 @@ public class PacketManager implements Listener{
 		manager = ProtocolLibrary.getProtocolManager();
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 		damage = new BlockDamage(plugin);
+		checkArmSwinging();
+		checkBreakingTimes();
 		
 	}
 	
+	private void checkArmSwinging() {
+		manager.addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Client.ARM_ANIMATION) {
+		    @Override
+		    public void onPacketReceiving(PacketEvent event) {
+		        armSwinging.put(event.getPlayer().getName(), System.currentTimeMillis());
+		    }
+		});
+	}
+	
 	@EventHandler
-	private void StopBreakingBlocks(BlockDamageEvent event) {      
+	private void blockStartBreaking(BlockDamageEvent event) {      
 		if (event.getBlock().getType().isAir()) {
        		removeMiningFatigue(event.getPlayer());
        		return;
        	}
+		
+		BlockDamage.cancelTaskWithBlockReset(event.getPlayer());
 		
 		
 		YamlConfiguration config = plugin.filehandler.getConfig();
@@ -49,9 +70,9 @@ public class PacketManager implements Listener{
 			return;
 		}
 		
-		if (config.getConfigurationSection("Speeds").contains(event.getBlock().getType().toString())) {		
+		if (config.getConfigurationSection("Speeds").contains(event.getBlock().getType().toString())) {	
 			addMiningFatigue(event.getPlayer());
-			damage.startBreaking(config.getConfigurationSection("Speeds").getInt(event.getBlock().getType().toString()), event.getPlayer(), event.getBlock());
+			damage.configureBreakingPacket(config.getConfigurationSection("Speeds").getDouble(event.getBlock().getType().toString()), event.getPlayer(), event.getBlock());
 		} else {
 			removeMiningFatigue(event.getPlayer());
 		}
@@ -106,6 +127,24 @@ public class PacketManager implements Listener{
 			player.addPotionEffect(previousFatigueEffects.get(player.getName()));
 			previousFatigueEffects.remove(player.getName());
 		}
+	}
+	
+	// checks that an arm swing packet was delivered in the last tick (0.05 seconds)
+	private void checkBreakingTimes() {
+		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
+
+			@Override
+			public void run() {
+				Set<String> keySet = armSwinging.keySet();
+				long currentTime = System.currentTimeMillis();
+				for (String string : keySet) {
+					if (armSwinging.get(string) + 50 < currentTime) {
+						armSwinging.remove(string);
+					}
+				}
+			}
+			
+		}, 1L, 1L);
 	}
 	
 	

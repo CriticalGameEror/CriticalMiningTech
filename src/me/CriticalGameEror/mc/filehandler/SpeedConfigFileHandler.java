@@ -69,6 +69,25 @@ public class SpeedConfigFileHandler {
 		return true;
 	}
 	
+	public boolean removeBlockFromConfig(Block block) {
+		if (config.getConfigurationSection("Speeds") == null) {
+			return true;
+		}
+		
+		config.set("Speeds." + block.getType().toString(), null);
+		
+		try {
+			config.save(blockSaveFile);
+		} catch (IOException e) {
+			Bukkit.getLogger().log(Level.SEVERE, "[CriticalMiningTech] An error occured while saving SpeedConfig.yml!");
+			return false;
+		}
+		
+		System.out.println("[CriticalMiningTech] SpeedConfig.yml saved successfully");
+		return true;
+		
+	}
+	
 	public YamlConfiguration getConfig() {
 		return this.config;
 	}
