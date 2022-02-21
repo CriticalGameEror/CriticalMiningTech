@@ -16,5 +16,5 @@ This plugin implements custom mining tech into Minecraft. This allows you to cus
 
 ### Dependencies:
 
-Please add `ProtocolLib` to your `depend: []` argument in `config.yml`. Also please ensure you have installed ProtocolLib on your spigot server (https://www.spigotmc.org/resources/protocollib.1997/)
+Please ensure you have installed ProtocolLib on your spigot server (https://www.spigotmc.org/resources/protocollib.1997/)
 
