@@ -1,4 +1,4 @@
-# CriticalMiningTech
+# CriticalMiningTech (1.16 plugin)
 
 ## **!Currently in development!**
 
@@ -13,3 +13,8 @@ This plugin implements custom mining tech into Minecraft. This allows you to cus
 ### Commands:
 
 `/blockhardness`: Allows you to set or remove block hardness of a targeted block
+
+### Dependencies:
+
+Please add `ProtocolLib` to your `depend: []` argument in `config.yml`. Also please ensure you have installed ProtocolLib on your spigot server (https://www.spigotmc.org/resources/protocollib.1997/)
+
