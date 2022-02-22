@@ -40,12 +40,12 @@ public class PacketManager implements Listener{
 		manager = ProtocolLibrary.getProtocolManager();
 		Bukkit.getPluginManager().registerEvents(this, plugin);
 		damage = new BlockDamage(plugin);
-		checkArmSwinging();
-		checkBreakingTimes();
+		receivedArmAnimation();
+		checkArmAnimation();
 		
 	}
 	
-	private void checkArmSwinging() {
+	private void receivedArmAnimation() {
 		manager.addPacketListener(new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Client.ARM_ANIMATION) {
 		    @Override
 		    public void onPacketReceiving(PacketEvent event) {
@@ -129,8 +129,8 @@ public class PacketManager implements Listener{
 		}
 	}
 	
-	// checks that an arm swing packet was delivered in the last tick (0.05 seconds)
-	private void checkBreakingTimes() {
+	// checks that an arm swing packet was delivered in the last tick (0.15 seconds)
+	private void checkArmAnimation() {
 		Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, new Runnable() {
 
 			@Override
@@ -138,7 +138,7 @@ public class PacketManager implements Listener{
 				Set<String> keySet = armSwinging.keySet();
 				long currentTime = System.currentTimeMillis();
 				for (String string : keySet) {
-					if (armSwinging.get(string) + 50 < currentTime) {
+					if (armSwinging.get(string) + 150 < currentTime) {
 						armSwinging.remove(string);
 					}
 				}
