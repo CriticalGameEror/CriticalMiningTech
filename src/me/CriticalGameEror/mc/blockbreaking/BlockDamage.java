@@ -5,10 +5,13 @@ import java.util.HashMap;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffectType;
 
 import com.comphenix.protocol.PacketType;
@@ -256,6 +259,33 @@ public class BlockDamage {
 //    	}
     	
     	block.breakNaturally(player.getEquipment().getItemInMainHand());
-    	block.getWorld().playSound(block.getLocation(), block.getBlockData().getSoundGroup().getBreakSound(), 1.0f, 1.0f);    	
+    	block.getWorld().playSound(block.getLocation(), block.getBlockData().getSoundGroup().getBreakSound(), 1.0f, 1.0f);
+    	
+    	ItemStack item = player.getEquipment().getItemInMainHand();
+    	
+    	if (item == null) {
+    		return;
+    	}
+    	
+    	ItemMeta meta = item.getItemMeta();
+    	
+    	if (meta.isUnbreakable()) {
+    		return;
+    	}
+    	
+    	if (meta instanceof Damageable) {
+    		Damageable damage = (Damageable) meta;
+    		
+    		if (!damage.hasDamage()) {
+    			damage.setDamage(1);
+    		} else if (damage.getDamage() >= item.getType().getMaxDurability()) {
+    			player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1.0F, 1.0F);
+    			player.getInventory().setItemInMainHand(null);
+    			return;
+    		} else {
+        		damage.setDamage(damage.getDamage() + 1);  
+    		} 		
+    		item.setItemMeta((ItemMeta) damage);
+    	}
     }
 }
