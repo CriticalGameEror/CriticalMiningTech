@@ -2,6 +2,7 @@ package me.CriticalGameEror.mc.blockbreaking;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Random;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -271,6 +272,14 @@ public class BlockDamage {
     	
     	if (meta.isUnbreakable()) {
     		return;
+    	}
+    	
+    	if (meta.hasEnchant(Enchantment.DURABILITY)) {
+    		Random random = new Random();
+    		
+    		if (random.nextInt(Math.round(100 / (meta.getEnchantLevel(Enchantment.DURABILITY) + 1))) == 0) {
+    			return;
+    		}
     	}
     	
     	if (meta instanceof Damageable) {
