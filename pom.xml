@@ -6,7 +6,7 @@
   
   <groupId>me.CriticalGameEror</groupId>
   <artifactId>CriticalMiningTech</artifactId>
-  <version>BETA-1.1.0</version>
+  <version>BETA-1.2.0</version>
   
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
