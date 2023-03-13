@@ -1,0 +1,23 @@
+main: me.CriticalGameEror.mc.CriticalMiningTech
+name: CriticalMiningTech
+version: 0.0.1
+description: Adds custom mining tech to your minecraft world
+api-version: 1.16
+author: CriticalGameEror
+depend: [ProtocolLib]
+commands:
+  blockhardness:
+    description: adds a custom block hardness value to the config or to remove the hardness
+    permission: criticalmining.blockhardness
+    permission-message: You do not have permission to use this command.
+    usage: "Usage: /addblockhardness <set|remove> <hardness (if 'set' is chosen)>"
+permissions:
+  criticalmining.*:
+    description: Gives all criticalmining privilages
+    default: op
+    children:
+      criticalmining.addblockhardness: true
+  criticalmining.blockhardness:
+    description: Gives the addblockhardness permission
+    default: op
+    
